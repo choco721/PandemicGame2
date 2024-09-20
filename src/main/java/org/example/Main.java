@@ -49,10 +49,23 @@ public class Main {
             System.out.println("4. Mostrar jugadores");
             System.out.println("5. Mostrar conexiones del tablero");
             System.out.println("6. Sacar carta de infección");
-            System.out.println("7. Salir");
+            System.out.println("7. Mover jugador");
+            System.out.println("8. Salir");
 
-            int opcion = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
+            int opcion = -1;
+            while (opcion < 1 || opcion > 8) {
+                System.out.print("Seleccione una opción: ");
+                if (scanner.hasNextInt()) {
+                    opcion = scanner.nextInt();
+                    scanner.nextLine();
+                    if (opcion < 1 || opcion > 8) {
+                        System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    }
+                } else {
+                    System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                    scanner.nextLine();
+                }
+            }
 
             switch (opcion) {
                 case 1:
@@ -91,15 +104,36 @@ public class Main {
                 case 5:
                     tablero.mostrarConexiones();
                     break;
-                case 6:
+                case 6: // Sacar carta de infección
                     Carta cartaSacada = gestorDeCartas.sacarCarta();
                     if (cartaSacada != null) {
                         System.out.println("Carta sacada: " + cartaSacada);
+                        cartaSacada.aplicarEfecto(gestorDeCartas, tablero, jugadorActual); // Aplica el efecto de la carta
                     } else {
                         System.out.println("No hay más cartas en el mazo.");
                     }
                     break;
-                case 7:
+                case 7: // Mover jugador
+                    System.out.print("Ingrese el nombre de la ciudad a la que desea moverse: ");
+                    String nombreCiudadDestino = scanner.nextLine();
+                    Ciudad ciudadDestino = tablero.getCiudad(nombreCiudadDestino);
+                    if (ciudadDestino != null) {
+                        // Verificar si la ciudad destino está conectada con la ciudad actual
+                        if (jugadorActual.getCiudadActual() != null &&
+                                jugadorActual.getCiudadActual().getConexiones().contains(ciudadDestino)) {
+                            jugadorActual.setCiudadActual(ciudadDestino);
+                            System.out.println(jugadorActual.getNombre() + " se ha movido a " + ciudadDestino.getNombre());
+                        } else if (jugadorActual.getCiudadActual() == null) {
+                            jugadorActual.setCiudadActual(ciudadDestino);
+                            System.out.println(jugadorActual.getNombre() + " se ha movido a " + ciudadDestino.getNombre());
+                        } else {
+                            System.out.println("No se puede mover a " + ciudadDestino.getNombre() + ", no está conectada.");
+                        }
+                    } else {
+                        System.out.println("Ciudad no encontrada.");
+                    }
+                    break;
+                case 8: // Salir
                     System.out.println("¡Gracias por jugar!");
                     juegoEnCurso = false;
                     break;

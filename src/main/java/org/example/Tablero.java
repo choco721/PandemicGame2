@@ -22,6 +22,18 @@ public class Tablero {
         return ciudades.get(nombre);
     }
 
+    public void infectarCiudad(Carta carta) {
+        String ciudadNombre = carta.getContenido();
+        Ciudad ciudad = ciudades.get(ciudadNombre);
+        if (ciudad != null) {
+            ciudad.infectar();
+            System.out.println("La ciudad " + ciudadNombre + " se ha infectado.");
+        } else {
+            System.out.println("Ciudad no encontrada: " + ciudadNombre);
+        }
+    }
+
+
     public void conectarCiudades(String nombreCiudad1, String nombreCiudad2) {
         Ciudad ciudad1 = ciudades.get(nombreCiudad1);
         Ciudad ciudad2 = ciudades.get(nombreCiudad2);
@@ -80,5 +92,11 @@ public class Tablero {
         return ciudades;
     }
 
-}
+    public Ciudad getCiudadAleatoria() {
+        {
 
+
+        }
+        return null;
+    }
+}

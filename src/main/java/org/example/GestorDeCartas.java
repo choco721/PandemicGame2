@@ -17,15 +17,14 @@ public class GestorDeCartas {
 
     private void inicializarMazo() {
         // Inicializa el mazo con cartas de enfermedades
-        for (int i = 0; i < 10; i++) { // Suponiendo 10 cartas por enfermedad
-            mazoDeCartas.add(new Carta("Enfermedad", "Enfermedad1"));
-            mazoDeCartas.add(new Carta("Enfermedad", "Enfermedad2"));
-            mazoDeCartas.add(new Carta("Enfermedad", "Enfermedad3"));
-            mazoDeCartas.add(new Carta("Enfermedad", "Enfermedad4"));
-        }
-        // Añadir cartas de eventos, si es necesario
-        mazoDeCartas.add(new Carta("Evento", "Evento1"));
-        mazoDeCartas.add(new Carta("Evento", "Evento2"));
+        mazoDeCartas.add(new CartaEnfermedad("Enfermedad1"));
+        mazoDeCartas.add(new CartaEnfermedad("Enfermedad2"));
+        mazoDeCartas.add(new CartaEnfermedad("Enfermedad3"));
+        mazoDeCartas.add(new CartaEnfermedad("Enfermedad4"));
+
+        // Añadir cartas de eventos
+        mazoDeCartas.add(new CartaEvento("Evento1: Cure una ciudad."));
+        mazoDeCartas.add(new CartaEvento("Evento2: Infecte una ciudad aleatoria."));
     }
 
     private void barajarMazo() {
