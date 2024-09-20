@@ -23,8 +23,8 @@ public class GestorDeCartas {
         mazoDeCartas.add(new CartaEnfermedad("Enfermedad4"));
 
         // Añadir cartas de eventos
-        mazoDeCartas.add(new CartaEvento("Evento1: Cure una ciudad."));
-        mazoDeCartas.add(new CartaEvento("Evento2: Infecte una ciudad aleatoria."));
+        mazoDeCartas.add(new CartaEvent("Evento1: Cure una ciudad."));
+        mazoDeCartas.add(new CartaEvent("Evento2: Infecte una ciudad aleatoria."));
     }
 
     private void barajarMazo() {
