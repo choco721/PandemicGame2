@@ -51,10 +51,10 @@ public class Main {
             System.out.println("6. Sacar carta de infección");
             System.out.println("7. Salir");
 
-            int option = scanner.nextInt();
-            scanner.nextLine();
+            int opcion = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
 
-            switch (option) {
+            switch (opcion) {
                 case 1:
                     System.out.println("Estado de las ciudades:");
                     for (Ciudad ciudad : tablero.getCiudades().values()) {
@@ -67,7 +67,7 @@ public class Main {
                     Ciudad ciudadInfectada = tablero.getCiudad(ciudadInfectar);
                     if (ciudadInfectada != null) {
                         ciudadInfectada.infectar();
-                        System.out.println("La ciudad " + ciudadInfectada.getNombre() + " ha sido infectada.");
+                        System.out.println(ciudadInfectada.getNombre() + " se ha infectado.");
                     } else {
                         System.out.println("Ciudad no encontrada.");
                     }
@@ -78,7 +78,7 @@ public class Main {
                     Ciudad ciudadCurada = tablero.getCiudad(ciudadCurar);
                     if (ciudadCurada != null) {
                         ciudadCurada.curar();
-                        System.out.println("La ciudad " + ciudadCurada.getNombre() + " ha sido curada.");
+                        System.out.println(ciudadCurada.getNombre() + " se ha curado.");
                     } else {
                         System.out.println("Ciudad no encontrada.");
                     }
@@ -107,7 +107,7 @@ public class Main {
                     System.out.println("Opción no válida.");
             }
 
-            // Chequear condiciones de victoria y derrota
+            // Comprobar condiciones de fin del juego
             if (tablero.hayBrotes()) {
                 System.out.println("¡El juego ha terminado! Los brotes han alcanzado el límite.");
                 juegoEnCurso = false;
@@ -118,13 +118,10 @@ public class Main {
                 juegoEnCurso = false;
             }
 
-            if (gestorDeCartas.estaVacio()) {
-                System.out.println("¡El juego ha terminado! No quedan cartas en el mazo.");
-                juegoEnCurso = false;
+            // Pasar al siguiente turno solo si no se han mostrado estados o conexiones
+            if (opcion != 1 && opcion != 5) {
+                turnoActual = (turnoActual + 1) % jugadores.size();
             }
-
-            // Pasar al siguiente turno
-            turnoActual = (turnoActual + 1) % jugadores.size();
         }
 
         scanner.close();
